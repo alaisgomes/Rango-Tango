@@ -12,7 +12,7 @@ from rango.forms import PageForm
 from rango.forms import UserForm, UserProfileForm
 from rango.models import Category
 from rango.models import Page
-
+from django.contrib.auth import logout
 
 def index(request):
     # Query the database for a list of ALL categories currently stored.
@@ -77,7 +77,7 @@ def add_category(request):
             return index(request)
         else:
             # The supplied form contained errors - just print them to the terminal.
-            print form.errors
+            print (form.errors)
     else:
         # If the request was not a POST, display the form to enter details.
         form = CategoryForm()
@@ -101,10 +101,9 @@ def add_page(request, category_name_slug):
                 page.category = cat
                 page.views = 0
                 page.save()
-                # probably better to use a redirect here.
                 return category(request, category_name_slug)
         else:
-            print form.errors
+            print (form.errors)
     else:
         form = PageForm()
 
@@ -157,7 +156,7 @@ def register(request):
         # Print problems to the terminal.
         # They'll also be shown to the user.
         else:
-            print user_form.errors, profile_form.errors
+            print (user_form.errors, profile_form.errors)
 
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
@@ -201,7 +200,7 @@ def user_login(request):
                 return HttpResponse("Your Rango account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
-            print "Invalid login details: {0}, {1}".format(username, password)
+            print ("Invalid login details: {0}, {1}" + format(username, password))
             return HttpResponse("Invalid login details supplied.")
 
     # The request is not a HTTP POST, so display the login form.
@@ -215,3 +214,11 @@ def user_login(request):
 @login_required
 def restricted(request):
     return HttpResponse("Since you're logged in, you can see this text!")
+
+@login_required
+def user_logout(request):
+    # Since we know the user is logged in, we can now just log them out.
+    logout(request)
+
+    # Take the user back to the homepage.
+    return HttpResponseRedirect('/rango/')
