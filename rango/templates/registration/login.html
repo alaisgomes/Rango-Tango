@@ -1,0 +1,25 @@
+{% extends "../rango/base.html" %}
+
+{% block body_block %}
+<h1>Login</h1>
+
+        <form class="form-horizontal" role="form" method="post" action=".">
+            {% csrf_token %}
+                <!-- {{ form.as_p }} -->
+
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <div class="form-group">
+            <input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
+
+            </div>
+            <br>
+            <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" id="id_password" name="password"  required />
+            <br>
+            </div>
+            <input class="btn btn-lg btn-primary btn-block" role="button" type="submit" value="Sign In" />
+                </form>
+
+        <p>Not  a member? <a href="{% url 'registration_register' %}">Register</a>!</p>
+
+{% endblock %}

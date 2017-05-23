@@ -1,1 +1,8 @@
-# Created by .ignore support plugin (hsz.mobi)
+#
+rango/migrations/0001_initial.pyc
+rango/migrations/0002_page_likes.pyc
+rango/migrations/0003_category_likes.pyc
+rango/migrations/0004_auto_20170519_1722.pyc
+rango/migrations/0005_auto_20170519_1728.pyc
+rango/migrations/0006_userprofile.pyc
+
